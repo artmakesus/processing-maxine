@@ -49,7 +49,7 @@ void checker(int c) {
     final int xx = int(x / w);
     final int yy = int(y / h);
     
-    int pix = 0;
+    int pix = 0xFF000000;
     if ((xx + yy) % 2 == 1) {
       pix = c;
     }
