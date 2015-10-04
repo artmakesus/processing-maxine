@@ -1,0 +1,3 @@
+name = Maxine
+applet = maxine.jar
+application.linux = libMaxine.so
