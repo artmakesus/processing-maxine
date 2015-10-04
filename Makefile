@@ -1,7 +1,7 @@
 PROCESSING=/home/jacky/Downloads/processing
 JAVAC_FLAGS=-d . -cp $(JAVA_HOME)/jre/lib/rt.jar:$(PROCESSING)/core/library/core.jar
 JAVA_FILES=com/artmakesus/maxine/*.java
-CC_FLAGS=-lrt -shared -fPIC -I $(JAVA_HOME)/include
+CC_FLAGS=-lrt -shared -fPIC -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/linux
 CC_FILES=com_artmakesus_maxine_Maxine.cpp com_artmakesus_maxine_Maxine.h
 OUTPUT_LIBRARY_PATH=maxine/library
 
