@@ -11,7 +11,6 @@ int offsetX = 0;
 void setup() {
   size(200, 200);
   noStroke();
-  checker();
   
   maxine = new Maxine(this);
 
