@@ -3,8 +3,6 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 JNIEXPORT void JNICALL Java_com_artmakesus_maxine_Maxine_setTexturePixels
   (JNIEnv *env, jobject obj, jint id, jintArray jpixels)
@@ -13,6 +11,7 @@ JNIEXPORT void JNICALL Java_com_artmakesus_maxine_Maxine_setTexturePixels
 		return;
 	}
 
+	// Convert int to string
 	char str[64];
 	sprintf(str, "%d", id);
 
@@ -22,8 +21,9 @@ JNIEXPORT void JNICALL Java_com_artmakesus_maxine_Maxine_setTexturePixels
 		return;
 	}
 
+	// Convert Java Array to C Array
 	const jsize len = env->GetArrayLength(jpixels);
-	const jint *pixels = env->GetIntArrayElements(jpixels, NULL);
+	jint *pixels = env->GetIntArrayElements(jpixels, NULL);
 
 	// Map Pixels
 	jint *mpixels = (jint *) mmap(NULL, len * sizeof(*pixels), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
@@ -33,9 +33,16 @@ JNIEXPORT void JNICALL Java_com_artmakesus_maxine_Maxine_setTexturePixels
 	}
 
 	// Copy Pixels
-	fprintf(stderr, "BEGIN\n");
 	for (jsize i = 0; i < len; i++) {
 		mpixels[i] = pixels[i];
 	}
-	fprintf(stderr, "END\n");
+
+	// Free C Array
+	env->ReleaseIntArrayElements(jpixels, pixels, JNI_ABORT);
+
+	// Unmap Pixels
+	munmap(mpixels, len * sizeof(*pixels));
+
+	// Close Shared Memory
+	close(fd);
 }

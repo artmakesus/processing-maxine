@@ -1,5 +1,5 @@
 PROCESSING=/home/jacky/Downloads/processing
-JAVAC_FLAGS=-source 1.6 -target 1.6 -d . -cp $(JAVA_HOME)/jre/lib/rt.jar:$(PROCESSING)/core/library/core.jar
+JAVAC_FLAGS=-d . -cp $(JAVA_HOME)/jre/lib/rt.jar:$(PROCESSING)/core/library/core.jar
 JAVA_FILES=com/artmakesus/maxine/*.java
 CC_FLAGS=-lrt -shared -fPIC -I $(JAVA_HOME)/include
 CC_FILES=com_artmakesus_maxine_Maxine.cpp com_artmakesus_maxine_Maxine.h
@@ -8,13 +8,13 @@ OUTPUT_LIBRARY_PATH=maxine/library
 linux: $(CC_FILES)
 	javac $(JAVAC_FLAGS) $(JAVA_FILES)
 	jar -cf maxine.jar com
-	g++ $(CC_FLAGS) *.cpp -o libMaxine.so
+	g++ *.cpp -o libMaxine.so $(CC_FLAGS)
 	mv maxine.jar libMaxine.so $(OUTPUT_LIBRARY_PATH)
 
 linux64: $(CC_FILES)
 	javac $(JAVAC_FLAGS) $(JAVA_FILES)
 	jar -cf maxine.jar com
-	g++ $(CC_FLAGS) *.cpp -o libMaxine.so
+	g++ *.cpp -o libMaxine.so $(CC_FLAGS)
 	mv maxine.jar libMaxine.so $(OUTPUT_LIBRARY_PATH)
 
 clean:
