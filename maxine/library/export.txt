@@ -1,3 +1,5 @@
 name = Maxine
 applet = maxine.jar
 application.linux = libMaxine.so
+application.macosx = libMaxine.jnilib
+application.windows = Maxine.dll
