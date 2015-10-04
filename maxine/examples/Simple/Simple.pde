@@ -24,10 +24,12 @@ void setup() {
 }
 
 void draw() {
-  checker();
-  item.setTexture(g);
-  item.invalidateTexture();
-  offsetX = (offsetX + 1) % width;
+  if (item != null) {
+    checker();
+    item.setTexture(g);
+    item.invalidateTexture();
+    offsetX = (offsetX + 1) % width;
+  }
 }
 
 void checker() {
